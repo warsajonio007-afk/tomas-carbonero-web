@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Tomas Carbonero</string>
+    <string name="title_activity_main">Tomas Carbonero</string>
+    <string name="package_name">com.tomascarbonero.app</string>
+    <string name="custom_url_scheme">com.tomascarbonero.app</string>
+</resources>

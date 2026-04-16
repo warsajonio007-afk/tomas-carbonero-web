@@ -1,0 +1,29 @@
+/*
+  # Cabeceras de seguridad HTTP — aplicadas a todas las rutas
+  # Netlify las sirve con cada respuesta
+
+  # Previene ataques MIME-sniffing
+  X-Content-Type-Options: nosniff
+
+  # Previene clickjacking — el sitio no puede ser embebido en iframes externos
+  X-Frame-Options: DENY
+
+  # Fuerza HTTPS en todas las conexiones futuras (1 año, incluye subdominios)
+  # Requisito previo para inscribirse en el preload HSTS list (hstspreload.org)
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+  # Controla qué información se envía en el Referer al navegar fuera del sitio
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # Política de permisos — deshabilita APIs del navegador que este sitio no usa
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+
+  # Content Security Policy
+  # — scripts: solo el propio dominio + Google Fonts JS (si se usara)
+  # — styles: propio dominio + Google Fonts (las fuentes se cargan de fonts.googleapis.com)
+  # — fonts: propio dominio + fonts.gstatic.com
+  # — imágenes: propio dominio + data URIs (para SVG inline y favicon)
+  # — conexiones: solo propio dominio + WhatsApp API (para el botón flotante)
+  # — frames: ninguno
+  # — objetos: ninguno
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.whatsapp.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self';

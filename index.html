@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="es">
+<!-- SVG filter para grano de película — debe estar fuera de cualquier elemento transformado para máxima compatibilidad Safari/iOS -->
+<svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden;pointer-events:none;">
+  <defs>
+    <filter id="grain-noise" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.68" numOctaves="2" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix type="saturate" values="0" in="noise"/>
+    </filter>
+  </defs>
+</svg>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Tomás Carbonero — Pisco Artesanal de Lunahuaná</title>
+  <meta name="description" content="Pisco artesanal ultra-premium de Lunahuaná, Perú. Italia, Quebranta y Torontel." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico?v=2" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#080706" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Tomás Carbonero" />
+  <meta name="msapplication-TileColor" content="#080706" />
+  <link rel="stylesheet" href="/src/styles/main.css" />
+</head>
+<body>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">
+        <img src="/assets/brand/firma.webp" alt="Tomás Carbonero" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="#valle">El Valle</a></li>
+        <li><a href="#piscos">Piscos</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#proceso">El Proceso</a></li>
+        <li><a href="#contacto" class="nav-cta">Adquirir</a></li>
+      </ul>
+      <button class="nav-menu-btn" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div id="mobile-menu">
+    <ul>
+      <li><a href="#valle">El Valle</a></li>
+      <li><a href="#piscos">Piscos</a></li>
+      <li><a href="#perfil">Perfil Sensorial</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#clientes">Clientes</a></li>
+      <li><a href="#proceso">El Proceso</a></li>
+      <li><a href="#contacto">Adquirir</a></li>
+    </ul>
+  </div>
+
+  <!-- SECCIÓN 01: HERO -->
+  <section id="hero">
+    <canvas id="particles"></canvas>
+
+    <div class="hero-slides">
+      <div class="hero-slide active">
+        <img src="/assets/italia-cubic-frontal.webp" alt="Pisco Italia Tomás Carbonero — Vista frontal" />
+      </div>
+      <div class="hero-slide">
+        <img src="/assets/italia-cubic-lateral-1.webp" alt="Pisco Italia Tomás Carbonero — Vista lateral 1" />
+      </div>
+      <div class="hero-slide">
+        <img src="/assets/italia-cubic-lateral-2.webp" alt="Pisco Italia Tomás Carbonero — Vista lateral 2" />
+      </div>
+      <div class="hero-slide">
+        <img src="/assets/italia-cubic-trasera-1.webp" alt="Pisco Italia Tomás Carbonero — Vista trasera 1" />
+      </div>
+      <div class="hero-slide">
+        <img src="/assets/italia-cubic-trasera-2.webp" alt="Pisco Italia Tomás Carbonero — Vista trasera 2" />
+      </div>
+    </div>
+
+    <div class="hero-overlay"></div>
+
+    <!-- Grano de película — aparece al cargar y se desvanece en 1.8s dejando la botella en su color real -->
+    <div id="hero-grain" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+      <div class="hero-bottle"></div>
+      <div class="hero-text">
+        <div class="hero-eyebrow">LUNAHUANÁ · LIMA · PERÚ</div>
+        <h1 class="hero-title">
+          <span class="hero-title-line">El pisco que <em>habla</em></span>
+          <span class="hero-title-line">desde el origen.</span>
+        </h1>
+        <p class="hero-sub">Donde el origen se convierte en legado.</p>
+        <a href="#piscos" class="hero-cta">EXPLORAR COLECCIÓN</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll-hint">
+      <div class="scroll-line"></div>
+      <span>SCROLL</span>
+    </div>
+  </section>
+
+  <!-- MARQUEE BAND -->
+  <div class="marquee-band" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Italia <span class="marquee-sep">✦</span> Quebranta <span class="marquee-sep">✦</span> Torontel <span class="marquee-sep">✦</span> Acholado <span class="marquee-sep">✦</span> Valle de Lunahuaná <span class="marquee-sep">✦</span> Río Cañete <span class="marquee-sep">✦</span> Destilado Artesanal <span class="marquee-sep">✦</span></span>
+      <span>Italia <span class="marquee-sep">✦</span> Quebranta <span class="marquee-sep">✦</span> Torontel <span class="marquee-sep">✦</span> Acholado <span class="marquee-sep">✦</span> Valle de Lunahuaná <span class="marquee-sep">✦</span> Río Cañete <span class="marquee-sep">✦</span> Destilado Artesanal <span class="marquee-sep">✦</span></span>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 01b: FRASE DE MARCA -->
+  <section id="frase">
+    <div class="frase-inner">
+      <p class="frase-text">
+        Tradición que evoluciona. Carácter que perdura.
+      </p>
+      <div class="frase-line"></div>
+      <p class="frase-origin">— Lunahuaná, Lima · Perú</p>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 02: EL VALLE -->
+  <section id="valle">
+    <div class="valle-inner">
+      <div class="valle-text">
+        <p class="section-label">El Origen</p>
+        <h2 class="valle-title">Donde el<br /><em>río</em> y los<br />Andes se<br />encuentran,<br />nace el carácter.</h2>
+        <p class="valle-body">
+          En el corazón de Lunahuaná, a orillas del Cañete, crecen las uvas que dan vida a Tomás Carbonero.
+          Un valle que el sol abraza todo el año y el viento de los Andes refresca cada noche.
+        </p>
+        <p class="valle-body">
+          Aquí, la tierra arcillosa y el clima extremo obligan a la uva a concentrar todo su carácter.
+          El resultado: piscos de intensidad y elegancia irrepetibles.
+        </p>
+        <div class="valle-stats">
+          <div class="valle-stat">
+            <span class="valle-stat-num">100+</span>
+            <span class="valle-stat-label">Años de tradición</span>
+          </div>
+          <div class="valle-stat-sep"></div>
+          <div class="valle-stat">
+            <span class="valle-stat-num">3</span>
+            <span class="valle-stat-label">Generaciones</span>
+          </div>
+          <div class="valle-stat-sep"></div>
+          <div class="valle-stat">
+            <span class="valle-stat-num">4</span>
+            <span class="valle-stat-label">Variedades de uva</span>
+          </div>
+        </div>
+      </div>
+      <div class="valle-visual">
+        <div class="valle-img-wrap">
+          <img src="/assets/photos/valle.webp" alt="Valle de Lunahuaná, Río Cañete y los Andes" class="valle-photo" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 03: PISCOS -->
+  <section id="piscos">
+    <div class="piscos-header">
+      <p class="section-label">La Colección</p>
+      <h2>Cuatro expresiones.<br /><em>Un solo carácter.</em></h2>
+    </div>
+
+    <!-- ITALIA -->
+    <div class="pisco-slide" data-pisco="italia" style="--slide-bg:#0D0B08;">
+      <div class="pisco-inner">
+        <div class="pisco-bottle-wrap">
+          <img src="/assets/italia-cubo.webp" alt="Pisco Italia" class="pisco-bottle" />
+        </div>
+        <div class="pisco-info">
+          <p class="pisco-varietal">Uva Italia</p>
+          <h3 class="pisco-name">Italia</h3>
+          <p class="pisco-desc">
+            Floral y elegante. Notas de jazmín, durazno y lichi.
+            La variedad más aromática del valle, destilada a baja presión
+            para preservar cada matiz.
+          </p>
+          <div class="pisco-specs">
+            <div class="spec"><span class="spec-label">Vol.</span><span class="spec-val">42%</span></div>
+            <div class="spec"><span class="spec-label">Cosecha</span><span class="spec-val">2025</span></div>
+            <div class="spec"><span class="spec-label">Origen</span><span class="spec-val">Lunahuaná</span></div>
+          </div>
+          <a href="#contacto" class="pisco-cta">Adquirir</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUEBRANTA -->
+    <div class="pisco-slide" data-pisco="quebranta" style="--slide-bg:#1E1B16;">
+      <div class="pisco-inner">
+        <div class="pisco-bottle-wrap">
+          <img src="/assets/quebranta-cubo.webp" alt="Pisco Quebranta" class="pisco-bottle" />
+        </div>
+        <div class="pisco-info">
+          <p class="pisco-varietal">Uva Quebranta</p>
+          <h3 class="pisco-name">Quebranta</h3>
+          <p class="pisco-desc">
+            Robusto y redondo. Notas de mora, ciruelas maduras y chocolate negro.
+            La uva que resistió la filoxera y se quedó en el valle para siempre.
+          </p>
+          <div class="pisco-specs">
+            <div class="spec"><span class="spec-label">Vol.</span><span class="spec-val">42%</span></div>
+            <div class="spec"><span class="spec-label">Cosecha</span><span class="spec-val">2025</span></div>
+            <div class="spec"><span class="spec-label">Origen</span><span class="spec-val">Lunahuaná</span></div>
+          </div>
+          <a href="#contacto" class="pisco-cta">Adquirir</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- TORONTEL -->
+    <div class="pisco-slide" data-pisco="torontel" style="--slide-bg:#0D0B08;">
+      <div class="pisco-inner">
+        <div class="pisco-bottle-wrap">
+          <img src="/assets/torontel-cubo.webp" alt="Pisco Torontel" class="pisco-bottle" />
+        </div>
+        <div class="pisco-info">
+          <p class="pisco-varietal">Uva Torontel</p>
+          <h3 class="pisco-name">Torontel</h3>
+          <p class="pisco-desc">
+            Vibrante y fresco. Notas de mandarina, rosas y miel.
+            Un pisco que despierta los sentidos con cada sorbo y deja
+            un final largo e inconfundible.
+          </p>
+          <div class="pisco-specs">
+            <div class="spec"><span class="spec-label">Vol.</span><span class="spec-val">42%</span></div>
+            <div class="spec"><span class="spec-label">Cosecha</span><span class="spec-val">2025</span></div>
+            <div class="spec"><span class="spec-label">Origen</span><span class="spec-val">Lunahuaná</span></div>
+          </div>
+          <a href="#contacto" class="pisco-cta">Adquirir</a>
+        </div>
+      </div>
+    </div>
+    <!-- ACHOLADO -->
+    <div class="pisco-slide" data-pisco="acholado" style="--slide-bg:#171410;">
+      <div class="pisco-inner">
+        <div class="pisco-bottle-wrap">
+          <img src="/assets/acholado-cubo.webp" alt="Pisco Acholado" class="pisco-bottle" />
+        </div>
+        <div class="pisco-info">
+          <p class="pisco-varietal">Blend de Uvas</p>
+          <h3 class="pisco-name">Acholado</h3>
+          <p class="pisco-desc">
+            Un blend magistral de Italia, Quebranta y Torontel. Tres cepas que se fusionan para crear algo mayor que cada una por separado. Complejo, equilibrado y versátil — expresa la riqueza completa del valle de Lunahuaná en una sola copa. Cosecha 2025.
+          </p>
+          <div class="pisco-specs">
+            <div class="spec"><span class="spec-label">Vol.</span><span class="spec-val">42%</span></div>
+            <div class="spec"><span class="spec-label">Blend</span><span class="spec-val">Italia · Quebranta · Torontel</span></div>
+            <div class="spec"><span class="spec-label">Origen</span><span class="spec-val">Lunahuaná</span></div>
+          </div>
+          <a href="#contacto" class="pisco-cta">Adquirir</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 03b: NOTAS DE CATA — SELECTOR INTERACTIVO -->
+  <section id="cata">
+    <div class="cata-inner">
+
+      <!-- Columna izquierda: título + tabs -->
+      <div class="cata-left">
+        <p class="section-label">Perfil Sensorial</p>
+        <h2 class="cata-title">El arte de<br /><em>reconocer el carácter.</em></h2>
+        <div class="cata-tabs cepa-tabs" role="tablist">
+          <button class="cepa-tab active" role="tab" data-cepa="italia" aria-selected="true">Italia</button>
+          <button class="cepa-tab" role="tab" data-cepa="quebranta" aria-selected="false">Quebranta</button>
+          <button class="cepa-tab" role="tab" data-cepa="torontel" aria-selected="false">Torontel</button>
+          <button class="cepa-tab" role="tab" data-cepa="acholado" aria-selected="false">Acholado</button>
+        </div>
+      </div>
+
+      <!-- Columna derecha: descriptores -->
+      <div class="cata-panel" id="descriptores">
+        <div class="cata-rows">
+          <div class="cata-row">
+            <div class="cata-row-head">
+              <div class="cata-icon">
+                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M24 8c0 0-10 8-10 18a10 10 0 0020 0C34 16 24 8 24 8z"/></svg>
+              </div>
+              <span class="cata-label">Nariz</span>
+            </div>
+            <div class="cata-row-body">
+              <p class="cata-desc" id="nariz-texto">Aromas frutales intensos. Durazno, flores blancas y notas de pasas rubias. Limpio y vibrante.</p>
+              <div class="cata-bar-wrap"><div class="cata-bar" id="nariz-barra" style="width:85%"></div></div>
+            </div>
+          </div>
+          <div class="cata-row">
+            <div class="cata-row-head">
+              <div class="cata-icon">
+                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M12 28c0 8 6 12 12 12s12-4 12-12"/><path d="M12 28V20M36 28V20M18 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+              </div>
+              <span class="cata-label">Paladar</span>
+            </div>
+            <div class="cata-row-body">
+              <p class="cata-desc" id="paladar-texto">Sedoso y ligero. Lúcuma, pecana y un toque mineral del valle de Cañete.</p>
+              <div class="cata-bar-wrap"><div class="cata-bar" id="paladar-barra" style="width:75%"></div></div>
+            </div>
+          </div>
+          <div class="cata-row">
+            <div class="cata-row-head">
+              <div class="cata-icon">
+                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M8 40l8-8M24 8l8 32M16 32l8-24"/></svg>
+              </div>
+              <span class="cata-label">Final</span>
+            </div>
+            <div class="cata-row-body">
+              <p class="cata-desc" id="final-texto">Largo y elegante, con calidez que recuerda las tardes del río.</p>
+              <div class="cata-bar-wrap"><div class="cata-bar" id="final-barra" style="width:90%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /descriptores -->
+    </div><!-- /cata-inner -->
+  </section>
+
+  <!-- SECCIÓN 03c: PERFIL SENSORIAL — RADAR -->
+  <section id="perfil">
+    <div class="perfil-inner">
+
+      <div class="perfil-header">
+        <p class="section-label">Las Cepas</p>
+        <h2 class="perfil-title">Cuatro caracteres,<br /><em>un mismo origen.</em></h2>
+      </div>
+
+      <div class="perfil-body">
+        <!-- Columna izquierda: tabs de selección -->
+        <div class="perfil-tabs-col">
+          <div id="perfil-tabs" role="tablist" aria-label="Seleccionar variedad de pisco">
+            <button class="pr-tab pr-tab--active" data-i="0" role="tab" aria-selected="true">
+              <span class="pr-tab-name">Italia</span>
+              <span class="pr-tab-sub">Uva Italia · Floral &amp; elegante</span>
+            </button>
+            <button class="pr-tab" data-i="1" role="tab" aria-selected="false">
+              <span class="pr-tab-name">Quebranta</span>
+              <span class="pr-tab-sub">Uva Quebranta · Robusto &amp; redondo</span>
+            </button>
+            <button class="pr-tab" data-i="2" role="tab" aria-selected="false">
+              <span class="pr-tab-name">Torontel</span>
+              <span class="pr-tab-sub">Uva Torontel · Vibrante &amp; fresco</span>
+            </button>
+            <button class="pr-tab" data-i="3" role="tab" aria-selected="false">
+              <span class="pr-tab-name">Acholado</span>
+              <span class="pr-tab-sub">Blend · Italia · Quebranta · Torontel</span>
+            </button>
+          </div>
+          <button class="perfil-cmp-btn" id="perfil-cmp-btn" type="button">Comparar todas</button>
+        </div>
+
+        <!-- Columna derecha: meta siempre visible · radar expandible en móvil -->
+        <div class="perfil-right">
+
+          <!-- Descripción: siempre visible en cualquier dispositivo -->
+          <div id="perfil-meta"></div>
+
+          <!-- Botón expandir (solo móvil) -->
+          <button class="perfil-chart-toggle" id="perfil-chart-toggle"
+                  type="button" aria-expanded="false" aria-controls="perfil-chart-collapsible">
+            <span id="perfil-toggle-label">Descubrir el perfil sensorial</span>
+            <svg class="pct-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor"
+                 stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+              <line x1="8" y1="2" x2="8" y2="14"/>
+              <line x1="2" y1="8" x2="14" y2="8"/>
+            </svg>
+          </button>
+
+          <!-- Colapsable: gráfico + barras (en móvil oculto hasta clic) -->
+          <div class="perfil-chart-collapsible" id="perfil-chart-collapsible">
+            <div class="perfil-chart-wrap">
+              <canvas id="perfil-canvas" role="img"
+                aria-label="Gráfico de radar del perfil sensorial del pisco seleccionado"></canvas>
+            </div>
+            <div id="perfil-bars"></div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECCIÓN 04: SERVICIOS -->
+  <section id="servicios">
+    <div class="servicios-header">
+      <p class="section-label">Lo que hacemos</p>
+      <h2>Cada momento,<br /><em>una expresión.</em></h2>
+    </div>
+    <div class="servicios-grid servicios-grid--two">
+
+      <div class="servicio-card servicio-card--visual">
+        <div class="servicio-visual servicio-visual--lightbox">
+          <img src="/assets/empresas/cristal.webp" alt="Edición especial Sporting Cristal" class="lb-main" id="lb-main-emp" />
+          <div class="lb-thumbs">
+            <button class="lb-thumb lb-thumb--active" data-src="/assets/empresas/cristal.webp" aria-label="Sporting Cristal">
+              <img src="/assets/empresas/cristal.webp" alt="" />
+            </button>
+            <button class="lb-thumb" data-src="/assets/empresas/inca.webp" aria-label="Inca One">
+              <img src="/assets/empresas/inca.webp" alt="" />
+            </button>
+            <button class="lb-thumb" data-src="/assets/empresas/exitosa.webp" aria-label="Universal">
+              <img src="/assets/empresas/exitosa.webp" alt="" />
+            </button>
+            <button class="lb-thumb" data-src="/assets/empresas/yoshival.webp" aria-label="Yoshival">
+              <img src="/assets/empresas/yoshival.webp" alt="" />
+            </button>
+            <button class="lb-thumb" data-src="/assets/empresas/obispo.webp" aria-label="Obispo">
+              <img src="/assets/empresas/obispo.webp" alt="" />
+            </button>
+          </div>
+        </div>
+        <div class="servicio-body">
+          <div class="servicio-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+              <rect x="8" y="16" width="32" height="24" rx="2"/>
+              <path d="M16 16V12a8 8 0 0116 0v4"/>
+              <circle cx="24" cy="28" r="3"/>
+            </svg>
+          </div>
+          <h3 class="servicio-title">Empresas</h3>
+          <p class="servicio-desc">Personaliza tu marca con ediciones especiales. Botellas con tu logo, etiquetas corporativas y packaging exclusivo para eventos, lanzamientos y obsequios institucionales.</p>
+          <a href="#contacto" class="servicio-link">Cotizar <span>→</span></a>
+        </div>
+      </div>
+
+      <div class="servicio-card servicio-card--featured servicio-card--visual">
+        <div class="servicio-visual servicio-visual--rest">
+          <img src="/assets/restaurantes/rest1.webp" alt="Pisco Tomás Carbonero en Astrid &amp; Gastón" class="rest-single" id="rest-lightbox-img" />
+        </div>
+        <div class="servicio-body">
+          <div class="servicio-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+              <path d="M8 36V20l16-12 16 12v16"/>
+              <rect x="18" y="28" width="12" height="12"/>
+              <path d="M4 36h40"/>
+            </svg>
+          </div>
+          <h3 class="servicio-title">Restaurantes y Bares</h3>
+          <p class="servicio-desc">Calidad premium y rendimiento consistente. Abastecimiento regular, precios de distribuidor y asesoría para integrar Tomás Carbonero en tu carta de pisco sours y coctelería.</p>
+          <a href="#contacto" class="servicio-link">Distribuir <span>→</span></a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECCIÓN 05: CLIENTES -->
+  <section id="clientes">
+    <div class="clientes-header">
+      <p class="section-label">Confían en nosotros</p>
+      <h2>Elegido en las<br /><em>mejores mesas.</em></h2>
+    </div>
+    <div class="clientes-track-wrap">
+      <div class="clientes-track">
+        <div class="cliente-item"><img src="/assets/logos/panchita.webp" alt="Panchita" class="cliente-logo" /></div>
+        <div class="cliente-item"><img src="/assets/logos/el-bodegon.webp" alt="El Bodegón" class="cliente-logo" /></div>
+        <div class="cliente-item"><img src="/assets/logos/astrid-gaston.webp" alt="Astrid &amp; Gastón" class="cliente-logo" /></div>
+        <div class="cliente-item"><img src="/assets/logos/tanta.webp" alt="Tanta" class="cliente-logo" /></div>
+        <div class="cliente-item"><img src="/assets/logos/doomo.webp" alt="Doomo Saltado" class="cliente-logo" /></div>
+        <div class="cliente-item"><img src="/assets/logos/nacion1821.webp" alt="Nación 1821" class="cliente-logo" /></div>
+        <div class="cliente-item"><img src="/assets/logos/sdmar.webp" alt="S'Dmar Cevichería" class="cliente-logo" /></div>
+        <div class="cliente-item"><img src="/assets/logos/caleta.webp" alt="La Caleta Náutica" class="cliente-logo" /></div>
+        <div class="cliente-item"><img src="/assets/logos/thika-thani.webp" alt="Thika Thani Market" class="cliente-logo" /></div>
+        <div class="cliente-item"><img src="/assets/logos/marco.webp" alt="Marco Soluciones Integrales" class="cliente-logo" /></div>
+        <div class="cliente-item"><img src="/assets/logos/hormaq.webp" alt="Hormaq" class="cliente-logo" /></div>
+        <div class="cliente-item"><img src="/assets/logos/trinity.webp" alt="Transportes Trinity" class="cliente-logo" /></div>
+        <div class="cliente-item"><img src="/assets/logos/yoshival.webp" alt="Automotores Yoshival" class="cliente-logo" /></div>
+        <div class="cliente-item"><img src="/assets/logos/boticas-dennis.webp" alt="Boticas Dennis" class="cliente-logo" /></div>
+        <div class="cliente-item"><img src="/assets/logos/espirituosos-del-peru.svg" alt="Espirituosos del Perú" class="cliente-logo" /></div>
+        <div class="cliente-item"><img src="/assets/logos/disenzo.webp" alt="Disenzo Licores" class="cliente-logo" /></div>
+        <div class="cliente-item"><img src="/assets/logos/laalcoholeria.webp" alt="La Alcoholería" class="cliente-logo" /></div>
+        <div class="cliente-item"><img src="/assets/logos/kuma.webp" alt="Kuma" class="cliente-logo" /></div>
+        <!-- Duplicado para scroll infinito -->
+        <div class="cliente-item" aria-hidden="true"><img src="/assets/logos/panchita.webp" alt="" class="cliente-logo" /></div>
+        <div class="cliente-item" aria-hidden="true"><img src="/assets/logos/el-bodegon.webp" alt="" class="cliente-logo" /></div>
+        <div class="cliente-item" aria-hidden="true"><img src="/assets/logos/astrid-gaston.webp" alt="" class="cliente-logo" /></div>
+        <div class="cliente-item" aria-hidden="true"><img src="/assets/logos/tanta.webp" alt="" class="cliente-logo" /></div>
+        <div class="cliente-item" aria-hidden="true"><img src="/assets/logos/doomo.webp" alt="" class="cliente-logo" /></div>
+        <div class="cliente-item" aria-hidden="true"><img src="/assets/logos/nacion1821.webp" alt="" class="cliente-logo" /></div>
+        <div class="cliente-item" aria-hidden="true"><img src="/assets/logos/sdmar.webp" alt="" class="cliente-logo" /></div>
+        <div class="cliente-item" aria-hidden="true"><img src="/assets/logos/caleta.webp" alt="" class="cliente-logo" /></div>
+        <div class="cliente-item" aria-hidden="true"><img src="/assets/logos/thika-thani.webp" alt="" class="cliente-logo" /></div>
+        <div class="cliente-item" aria-hidden="true"><img src="/assets/logos/marco.webp" alt="" class="cliente-logo" /></div>
+        <div class="cliente-item" aria-hidden="true"><img src="/assets/logos/hormaq.webp" alt="" class="cliente-logo" /></div>
+        <div class="cliente-item" aria-hidden="true"><img src="/assets/logos/trinity.webp" alt="" class="cliente-logo" /></div>
+        <div class="cliente-item" aria-hidden="true"><img src="/assets/logos/yoshival.webp" alt="" class="cliente-logo" /></div>
+        <div class="cliente-item" aria-hidden="true"><img src="/assets/logos/boticas-dennis.webp" alt="" class="cliente-logo" /></div>
+        <div class="cliente-item" aria-hidden="true"><img src="/assets/logos/espirituosos-del-peru.svg" alt="" class="cliente-logo" /></div>
+        <div class="cliente-item" aria-hidden="true"><img src="/assets/logos/disenzo.webp" alt="" class="cliente-logo" /></div>
+        <div class="cliente-item" aria-hidden="true"><img src="/assets/logos/laalcoholeria.webp" alt="" class="cliente-logo" /></div>
+        <div class="cliente-item" aria-hidden="true"><img src="/assets/logos/kuma.webp" alt="" class="cliente-logo" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 06: EL PROCESO -->
+  <section id="proceso">
+    <div class="proceso-header">
+      <p class="section-label">Artesanía</p>
+      <h2>Del racimo<br /><em>al alma.</em></h2>
+    </div>
+    <div class="proceso-timeline">
+      <div class="proceso-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <h4>Vendimia</h4>
+          <p>Cosecha manual en marzo. Solo racimos perfectos, seleccionados uno a uno al amanecer.</p>
+        </div>
+      </div>
+      <div class="proceso-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <h4>Prensado</h4>
+          <p>Prensado suave en frío. Sin calor, sin oxidación. El mosto conserva toda su pureza aromática.</p>
+        </div>
+      </div>
+      <div class="proceso-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <h4>Fermentación</h4>
+          <p>Fermentación lenta en tanques de acero inoxidable. Temperatura controlada. Sin prisas.</p>
+        </div>
+      </div>
+      <div class="proceso-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <h4>Destilación</h4>
+          <p>Un solo destilado en alambique de cobre. Sin agua añadida. Lo que sale es lo que es.</p>
+        </div>
+      </div>
+      <div class="proceso-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <h4>Reposo</h4>
+          <p>1 año en tanques de acero inoxidable. El tiempo que necesita el pisco para alcanzar su carácter definitivo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERÍA EXPANDIBLE -->
+  <div class="gallery" aria-label="Galería de imágenes">
+    <div class="g-item">
+      <img src="/assets/web/coleccion.webp" alt="Colección completa Tomás Carbonero" />
+    </div>
+    <div class="g-item">
+      <img src="/assets/web/alcoholeria.webp" alt="En La Alcoholería" />
+    </div>
+    <div class="g-item">
+      <img src="/assets/web/edicion.webp" alt="Edición Especial" />
+    </div>
+    <div class="g-item">
+      <img src="/assets/web/medalla.webp" alt="Medalla de Oro 2025" />
+    </div>
+  </div>
+
+  <!-- SECCIÓN 05: QUOTE -->
+  <section id="quote">
+    <div class="quote-inner">
+      <div class="quote-deco-line"></div>
+      <blockquote>
+        <p class="quote-text">"Este pisco expresa<br />el alma del Perú."</p>
+        <cite class="quote-author">
+          <p class="quote-author-label">Familia Tomás Carbonero</p>
+          <img src="/assets/brand/firma.webp" alt="Firma Tomás Carbonero" class="quote-firma" />
+        </cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 06: CONTACTO -->
+  <section id="contacto">
+    <div class="contacto-inner">
+      <div class="contacto-left">
+        <p class="section-label">Adquirir</p>
+        <h2 class="contacto-title">El origen,<br /><em>más cerca</em><br />de lo que imaginas</h2>
+        <p class="contacto-tagline">Desde su origen, hasta tu copa.</p>
+        <p class="contacto-sub">
+          Entregas en Lima y despachos a todo el Perú.<br />
+          También disponible para eventos y colecciones privadas.
+        </p>
+        <div class="contacto-details">
+          <div class="cd-item">
+            <span class="cd-label">Dirección</span>
+            <span class="cd-value">Km 36.5 Carretera Langla<br />Lunahuaná 15727, Lima</span>
+          </div>
+          <div class="cd-item">
+            <span class="cd-label">Teléfono</span>
+            <span class="cd-value">
+              <a href="tel:+51981361828">+51 981 361 828</a><br />
+              <a href="tel:+51997533022">+51 997 533 022</a>
+            </span>
+          </div>
+          <div class="cd-item">
+            <span class="cd-label">Email</span>
+            <span class="cd-value"><a href="#" class="email-obf" data-em="aW5mb0B0b21hc2NhcmJvbmVyby5jb20=">info&#64;tomascarbonero&#46;com</a></span>
+          </div>
+        </div>
+        <div class="contacto-awards">
+          <img src="/assets/brand/medallero.webp" alt="Premios Tomás Carbonero" />
+        </div>
+      </div>
+      <div class="contacto-right">
+        <form class="contacto-form" id="contact-form" name="contacto" method="POST" action="/gracias.html" data-netlify="true" data-netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="contacto" />
+          <!-- Campo honeypot anti-spam — invisible para humanos, trampea bots -->
+          <input type="text" name="bot-field" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <div class="form-group">
+            <label for="nombre">Nombre / Empresa <span class="form-required" aria-hidden="true">*</span></label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre o empresa"
+              required minlength="2" maxlength="120"
+              autocomplete="name" inputmode="text" />
+            <span class="form-error" id="error-nombre" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="correo">Correo electrónico <span class="form-required" aria-hidden="true">*</span></label>
+            <input type="email" id="correo" name="correo" placeholder="tu@correo.com"
+              required maxlength="254"
+              autocomplete="email" inputmode="email" />
+            <span class="form-error" id="error-correo" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <input type="tel" id="telefono" name="telefono" placeholder="+51 999 999 999"
+              maxlength="20" autocomplete="tel" inputmode="tel" />
+          </div>
+          <div class="form-group">
+            <label for="mensaje">¿Qué te interesa?</label>
+            <textarea id="mensaje" name="mensaje" rows="4" maxlength="2000"
+              placeholder="Italia · Quebranta · Torontel · Acholado · Pedidos Corporativos · Restaurantes y Bares"></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="form-submit-btn">Enviar mensaje</button>
+        </form>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- PUNTOS DE VENTA -->
+  <section class="dist-section-wrap">
+    <div class="dist-section">
+      <div class="dist-divider">
+        <div class="dist-divider-line"></div>
+        <div class="dist-divider-mark">✦</div>
+        <div class="dist-divider-line"></div>
+      </div>
+      <p class="dist-eyebrow">Puntos de venta</p>
+      <h2 class="dist-title">También disponible <em>en tienda</em></h2>
+      <p class="dist-subtitle">Encuéntralo en estos puntos seleccionados de Lima. Confirma disponibilidad antes de visitar.</p>
+
+      <div class="dist-grid">
+
+        <a class="dist-card" href="https://www.google.com/maps/search/Licoreria+Disenzo+San+Borja" target="_blank" rel="noopener">
+          <div class="dist-logo-area">
+            <img src="/assets/logos/disenzo.webp" alt="Disenzo Licores" class="dist-logo-img" />
+          </div>
+          <div class="dist-info">
+            <div class="dist-name">Licorería Disenzo</div>
+            <div class="dist-location">San Borja · Cercado de Lima</div>
+          </div>
+          <div class="dist-cta">Ver tienda <span class="dist-cta-arrow">→</span></div>
+        </a>
+
+        <a class="dist-card" href="https://www.google.com/maps/search/La+Alcoholeria+Pachacamac" target="_blank" rel="noopener">
+          <div class="dist-logo-area">
+            <img src="/assets/logos/laalcoholeria.webp" alt="La Alcoholería" class="dist-logo-img" />
+          </div>
+          <div class="dist-info">
+            <div class="dist-name">La Alcoholería</div>
+            <div class="dist-location">Pachacamac</div>
+          </div>
+          <div class="dist-cta">Ver tienda <span class="dist-cta-arrow">→</span></div>
+        </a>
+
+        <a class="dist-card" href="https://www.google.com/maps/search/Espirituosos+del+Peru+Miraflores" target="_blank" rel="noopener">
+          <div class="dist-logo-area">
+            <img src="/assets/logos/espirituosos-del-peru.svg" alt="Espirituosos del Perú" class="dist-logo-img" />
+          </div>
+          <div class="dist-info">
+            <div class="dist-name">Espirituosos del Perú</div>
+            <div class="dist-location">Miraflores</div>
+          </div>
+          <div class="dist-cta">Ver tienda <span class="dist-cta-arrow">→</span></div>
+        </a>
+
+      </div>
+
+      <p class="dist-note">Los horarios y disponibilidad son responsabilidad de cada punto de venta.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <img src="/assets/brand/logo-tipo.webp" alt="Tomás Carbonero" class="footer-logo" onerror="this.src='/assets/brand/firma.webp'" />
+        <nav class="footer-social" aria-label="Redes sociales">
+          <a href="https://www.facebook.com/tomascarbonero.pe" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/tomascarbonero.pe/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@tomascarbonero" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.79 1.54V6.78a4.86 4.86 0 01-1.02-.09z"/></svg>
+          </a>
+          <a href="https://api.whatsapp.com/send?phone=51997533022&text=Hola%2C%20quisiera%20conocer%20m%C3%A1s%20sobre%20sus%20productos" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </nav>
+      </div>
+
+      <div class="footer-info">
+        <div class="footer-info-group">
+          <p class="footer-info-label">Contacto</p>
+          <a href="#" class="footer-info-link email-obf" data-em="aW5mb0B0b21hc2NhcmJvbmVyby5jb20=">info&#64;tomascarbonero&#46;com</a>
+          <a href="tel:+51981361828" class="footer-info-link">+51 981 361 828</a>
+          <a href="tel:+51997533022" class="footer-info-link">+51 997 533 022</a>
+        </div>
+        <div class="footer-info-group">
+          <p class="footer-info-label">Dirección</p>
+          <p class="footer-info-text">Km 36.5 Carretera Langla<br />Lunahuaná 15727, Lima, Perú</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Tomás Carbonero. Pisco artesanal de Lunahuaná, Perú.</p>
+        <p class="footer-legal">El alcohol en exceso es dañino. Prohibida la venta a menores de edad.</p>
+        <p class="footer-legal"><a href="/privacidad.html">Política de privacidad</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BACK TO TOP — aparece al llegar al footer -->
+  <button id="back-to-top" aria-label="Volver al inicio" tabindex="0">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="12" y1="19" x2="12" y2="5"/>
+      <polyline points="5 12 12 5 19 12"/>
+    </svg>
+  </button>
+
+  <!-- WHATSAPP FLOTANTE -->
+  <a href="https://api.whatsapp.com/send?phone=51997533022&text=Hola%2C%20quisiera%20conocer%20m%C3%A1s%20sobre%20sus%20productos"
+     class="whatsapp-float"
+     target="_blank"
+     rel="noopener noreferrer"
+     aria-label="Contactar por WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- COOKIE CONSENT BANNER -->
+  <div id="cookie-banner" role="dialog" aria-label="Aviso de cookies" aria-live="polite">
+    <p>Este sitio usa cookies funcionales para garantizar su funcionamiento. Sin rastreo ni publicidad. <a href="/privacidad.html">Política de privacidad</a>.</p>
+    <button id="cookie-accept" type="button">Aceptar</button>
+  </div>
+
+  <!-- LIGHTBOX OVERLAY -->
+  <div class="lightbox-overlay" id="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Imagen ampliada">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Cerrar">✕</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+  </div>
+
+  <!-- Decodifica emails obfuscados y activa banner de cookies -->
+  <script>
+  (function() {
+    // Email obfuscation: base64 decode en client-side
+    document.querySelectorAll('.email-obf').forEach(function(a) {
+      try {
+        var em = atob(a.dataset.em);
+        a.href = 'mailto:' + em;
+        // Actualizar texto visible si muestra el email
+        if (a.textContent.indexOf('@') !== -1 || a.textContent.indexOf('info') !== -1) {
+          a.textContent = em;
+        }
+      } catch(e) {}
+    });
+
+    // Cookie consent banner
+    var banner = document.getElementById('cookie-banner');
+    var btn = document.getElementById('cookie-accept');
+    if (banner && btn) {
+      if (localStorage.getItem('tc_cookies_ok') === '1') {
+        banner.classList.add('hidden');
+      }
+      btn.addEventListener('click', function() {
+        localStorage.setItem('tc_cookies_ok', '1');
+        banner.classList.add('hidden');
+      });
+    }
+  })();
+  </script>
+
+  <script type="module" src="/src/main.js"></script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    if (!window.matchMedia('(hover: none)').matches) {
+      const cursor = document.getElementById('cursor')
+      const ring = document.getElementById('cursorRing')
+      if (!cursor || !ring) return
+      let mx=0,my=0,rx=0,ry=0
+      document.addEventListener('mousemove', e => {
+        mx=e.clientX; my=e.clientY
+      })
+      ;(function loop(){
+        rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12
+        cursor.style.left=mx+'px'; cursor.style.top=my+'px'
+        ring.style.left=rx+'px'; ring.style.top=ry+'px'
+        requestAnimationFrame(loop)
+      })()
+      document.querySelectorAll('a,button').forEach(el=>{
+        el.addEventListener('mouseenter',()=>{
+          cursor.style.width='16px'
+          cursor.style.height='16px'
+        })
+        el.addEventListener('mouseleave',()=>{
+          cursor.style.width='8px'
+          cursor.style.height='8px'
+        })
+      })
+    }
+  })
+  </script>
+
+</body>
+</html>
