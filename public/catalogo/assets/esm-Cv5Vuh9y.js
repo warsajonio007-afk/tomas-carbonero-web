@@ -1,2 +1,0 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/web-bTL5Wb9r.js","assets/dist-CRsPgqLG.js"])))=>i.map(i=>d[i]);
-import{t as e}from"./preload-helper-CREtouNF.js";import{n as t}from"./dist-CRsPgqLG.js";var n=t(`App`,{web:()=>e(()=>import(`./web-bTL5Wb9r.js`).then(e=>new e.AppWeb),__vite__mapDeps([0,1]))});export{n as App};
