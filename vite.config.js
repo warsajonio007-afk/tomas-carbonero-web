@@ -10,7 +10,7 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,ico,webp,svg,woff2}', 'favicon*.png', 'apple-touch-icon.png'],
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
         navigateFallback: '/index.html',
-        navigateFallbackDenylist: [/^\/privacidad/, /^\/gracias/],
+        navigateFallbackDenylist: [/^\/privacidad/, /^\/gracias/, /^\/catalogo/],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
