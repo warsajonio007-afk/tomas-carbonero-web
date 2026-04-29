@@ -2,11 +2,11 @@
   command = "npm run build"
   publish = "dist"
 
-# Catalogo SPA
+# Catalogo SPA — 301 on bare /catalogo so trailing slash is added and relative paths resolve
 [[redirects]]
   from = "/catalogo"
-  to   = "/catalogo/index.html"
-  status = 200
+  to   = "/catalogo/"
+  status = 301
 
 [[redirects]]
   from = "/catalogo/*"
