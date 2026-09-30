@@ -1,0 +1,14 @@
+{
+  "extraKnownMarketplaces": {
+    "thermos-claude-plugin": {
+      "source": { "source": "git", "url": "https://github.com/LayZeeDK/thermos-claude-plugin.git" }
+    },
+    "ecc": {
+      "source": { "source": "git", "url": "https://github.com/affaan-m/ECC.git" }
+    }
+  },
+  "enabledPlugins": {
+    "thermos@thermos-claude-plugin": true,
+    "ecc@ecc": true
+  }
+}
